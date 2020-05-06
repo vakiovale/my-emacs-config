@@ -1,0 +1,12 @@
+.cache
+\#*\#
+*~
+.\#*
+.emacs.desktop
+.lsp-session-v1
+auto-save-list/
+elpa/
+eshell/
+irony/
+transient/
+.custom.el
