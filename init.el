@@ -56,7 +56,11 @@
 ;; company-mode
 (use-package company
   :ensure t
-  :hook (after-init . global-company-mode))
+  :hook (after-init . global-company-mode)
+  :config
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 2)
+  (setq company-search-regexp-function (quote company-search-flex-regexp)))
 
 ;; cmake-ide
 (use-package cmake-ide
@@ -104,6 +108,12 @@
   :config
   (global-set-key (kbd "C-M-f") #'clang-format-buffer)
   (global-set-key (kbd "C-M-r") #'clang-format-region))
+
+;; atom-one-dark
+(use-package atom-one-dark-theme
+  :ensure t
+  :config
+  (load-theme 'atom-one-dark t))
 
 ;; keybindings
 (global-set-key (kbd "C-c 0") #'treemacs)
