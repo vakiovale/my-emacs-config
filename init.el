@@ -1,6 +1,10 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
+(package-refresh-contents)
+
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
 
 ;; custom.el
 (setq-default custom-file (expand-file-name ".custom.el" user-emacs-directory))
@@ -14,11 +18,16 @@
 	      indent-tabs-mode nil)
 
 ;; smartparens
-(require 'smartparens-config)
-(smartparens-global-mode)
+(use-package smartparens
+  :ensure t
+  :config
+  (smartparens-global-mode))
 
 ;; window numbering
-(window-numbering-mode)
+(use-package window-numbering
+  :ensure t
+  :config
+  (window-numbering-mode))
 
 ;; scroll bar
 (scroll-bar-mode -1)
@@ -27,62 +36,74 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 
-;; evil mode
-(require 'evil)
-(evil-mode 0)
-
 ;; magit
-(require 'magit)
+(use-package magit
+  :ensure t)
 
 ;; diff-hl
-(require 'diff-hl)
-(global-diff-hl-mode)
-(add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-(add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+(use-package diff-hl
+  :ensure t
+  :after (magit)
+  :hook ((magit-pre-refresh . diff-hl-magit-pre-refresh)
+         (magit-post-refresh . diff-hl-magit-post-refresh))
+  :config
+  (global-diff-hl-mode))
 
 ;; flycheck
-(require 'flycheck)
+(use-package flycheck
+  :ensure t)
 
 ;; company-mode
-(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
+(use-package company
+  :ensure t
+  :hook (after-init . global-company-mode))
 
 ;; cmake-ide
-(require 'cmake-ide)
-(cmake-ide-setup)
+(use-package cmake-ide
+  :ensure t
+  :config
+  (cmake-ide-setup))
 
 ;; treemacs
-(require 'lsp-treemacs)
+(use-package lsp-treemacs
+  :ensure t)
 
 ;; lsp-mode
-(setq lsp-keymap-prefix "s-l")
-(require 'lsp-mode)
-(add-hook 'c++-mode-hook #'lsp)
-(add-hook 'c-mode-hook #'lsp)
+(use-package lsp-mode
+  :ensure t
+  :hook ((c++-mode . lsp)
+         (c-mode . lsp))
+  :config
+  (setq lsp-keymap-prefix "s-l"))
 
 ;; irony
-(require 'irony)
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
-(add-hook 'objc-mode-hook 'irony-mode)
-
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+(use-package irony
+  :ensure t
+  :hook ((c++-mode . irony-mode)
+         (c-mode . irony-mode)
+         (irony-mode . irony-cdb-autosetup-compile-options)))
 
 ;; company-irony
-(require 'company)
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-irony))
+(use-package company-irony
+  :ensure t
+  :after company
+  :config
+  (eval-after-load 'company
+    '(add-to-list 'company-backends 'company-irony)))
 
 ;; rainbow-delimiters
-(require 'rainbow-delimiters)
-(add-hook 'c-mode-hook #'rainbow-delimiters-mode)
-(add-hook 'c++-mode-hook #'rainbow-delimiters-mode)
-(add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
+(use-package rainbow-delimiters
+  :ensure t
+  :hook ((c-mode . rainbow-delimiters-mode)
+         (c++-mode . rainbow-delimiters-mode)
+         (emacs-lisp-mode . rainbow-delimiters-mode)))
 
 ;; clang-format
-(require 'clang-format)
-(global-set-key (kbd "C-M-f") #'clang-format-buffer)
-(global-set-key (kbd "C-M-r") #'clang-format-region)
+(use-package clang-format
+  :ensure t
+  :config
+  (global-set-key (kbd "C-M-f") #'clang-format-buffer)
+  (global-set-key (kbd "C-M-r") #'clang-format-region))
 
 ;; keybindings
 (global-set-key (kbd "C-c 0") #'treemacs)
