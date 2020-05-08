@@ -143,3 +143,6 @@
 (add-hook 'c-mode-hook (lambda () (lsp-find-definition-binding)))
 (add-hook 'c++-mode-hook (lambda () (lsp-find-references-binding)))
 (add-hook 'c-mode-hook (lambda () (lsp-find-references-binding)))
+
+(add-hook 'c++-mode-hook #'electric-pair-mode)
+(add-hook 'c-mode-hook #'electric-pair-mode)
