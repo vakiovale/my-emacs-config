@@ -29,6 +29,17 @@
   :config
   (window-numbering-mode))
 
+;; projectile
+(use-package projectile
+  :ensure t
+  :config
+  (projectile-mode +1)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+
+(use-package treemacs-projectile
+  :ensure t
+  :after (treemacs projectile))
+
 ;; scroll bar
 (scroll-bar-mode -1)
 
@@ -117,7 +128,8 @@
 
 ;; keybindings
 (global-set-key (kbd "C-c 0") #'treemacs)
-(global-set-key (kbd "C-c e") #'eval-buffer)
+(global-set-key (kbd "C-c C-e") #'eval-buffer)
+(global-set-key (kbd "C-c e") #'projectile-find-file)
 
 (defun run-cmake-binding ()
   (local-set-key (kbd "C-c r") #'cmake-ide-run-cmake))
