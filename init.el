@@ -106,6 +106,12 @@
   (eval-after-load 'company
     '(add-to-list 'company-backends 'company-irony)))
 
+;; company-irony-c-headers
+(use-package company-irony-c-headers
+  :ensure t
+  :config
+  (add-to-list 'company-backends 'company-irony-c-headers))
+
 ;; rainbow-delimiters
 (use-package rainbow-delimiters
   :ensure t
@@ -125,6 +131,14 @@
   :ensure t
   :config
   (load-theme 'atom-one-dark t))
+
+;; semantic-refactor
+(use-package srefactor
+  :ensure t
+  :config
+  (semantic-mode 1)
+  (define-key c-mode-map (kbd "M-RET") #'srefactor-refactor-at-point)
+  (define-key c++-mode-map (kbd "M-RET") #'srefactor-refactor-at-point))
 
 ;; keybindings
 (global-set-key (kbd "C-c 0") #'treemacs)
