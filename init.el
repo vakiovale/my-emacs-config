@@ -135,7 +135,6 @@
 ;; all-the-icons
 (use-package all-the-icons
   :disabled ;; to not prompt icon install every time
-  :before (doom-themes)
   :config
   (all-the-icons-install-fonts))
 
