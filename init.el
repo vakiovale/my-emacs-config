@@ -1,7 +1,7 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
-(package-refresh-contents)
+;; (package-refresh-contents)
 
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
@@ -128,9 +128,31 @@
 
 ;; atom-one-dark
 (use-package atom-one-dark-theme
-  :ensure t
+  :disabled
   :config
   (load-theme 'atom-one-dark t))
+
+;; all-the-icons
+(use-package all-the-icons
+  :disabled ;; to not prompt icon install every time
+  :config
+  (all-the-icons-install-fonts))
+
+;; doom-themes
+(use-package doom-themes
+  :ensure t
+  :after (all-the-icons)
+  :config
+  (load-theme 'doom-one t)
+  (setq doom-themes-treemacs-theme "doom-colors")
+  (doom-themes-treemacs-config))
+
+;; doom-modeline
+(use-package doom-modeline
+  :ensure t
+  :after (all-the-icons)
+  :config
+  (doom-modeline-mode 1))
 
 ;; semantic-refactor
 (use-package srefactor
