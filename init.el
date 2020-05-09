@@ -172,3 +172,14 @@
 
 (add-hook 'c++-mode-hook #'electric-pair-mode)
 (add-hook 'c-mode-hook #'electric-pair-mode)
+
+;; Custom functions
+(defun run-simple-program-in-eshell ()
+  (interactive)
+  (eshell)
+  (insert "cd " custom-application-directory)
+  (eshell-send-input)
+  (insert custom-application-runnable)
+  (eshell-send-input))
+
+(global-set-key (kbd "C-c k") #'run-simple-program-in-eshell)
