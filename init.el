@@ -135,13 +135,13 @@
 ;; all-the-icons
 (use-package all-the-icons
   :disabled ;; to not prompt icon install every time
+  :before (doom-themes)
   :config
   (all-the-icons-install-fonts))
 
 ;; doom-themes
 (use-package doom-themes
   :ensure t
-  :after (all-the-icons)
   :config
   (load-theme 'doom-one t)
   (setq doom-themes-treemacs-theme "doom-colors")
@@ -150,7 +150,6 @@
 ;; doom-modeline
 (use-package doom-modeline
   :ensure t
-  :after (all-the-icons)
   :config
   (doom-modeline-mode 1))
 
