@@ -62,7 +62,9 @@
 
 ;; flycheck
 (use-package flycheck
-  :ensure t)
+  :ensure t
+  :config
+  (global-flycheck-mode))
 
 ;; company-mode
 (use-package company
@@ -203,3 +205,5 @@
   (eshell-send-input))
 
 (global-set-key (kbd "C-c k") #'run-simple-program-in-eshell)
+
+(global-set-key (kbd "C-u") #'helm-imenu)
