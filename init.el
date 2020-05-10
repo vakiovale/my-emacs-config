@@ -152,6 +152,7 @@
 (use-package doom-modeline
   :ensure t
   :config
+  (setq doom-modeline-icon (display-graphic-p))
   (doom-modeline-mode 1))
 
 ;; semantic-refactor
