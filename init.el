@@ -97,27 +97,6 @@
 (use-package lsp-ui
   :ensure t)
 
-;; irony
-(use-package irony
-  :ensure t
-  :hook ((c++-mode . irony-mode)
-         (c-mode . irony-mode)
-         (irony-mode . irony-cdb-autosetup-compile-options)))
-
-;; company-irony
-(use-package company-irony
-  :ensure t
-  :after company
-  :config
-  (eval-after-load 'company
-    '(add-to-list 'company-backends 'company-irony)))
-
-;; company-irony-c-headers
-(use-package company-irony-c-headers
-  :ensure t
-  :config
-  (add-to-list 'company-backends 'company-irony-c-headers))
-
 ;; rainbow-delimiters
 (use-package rainbow-delimiters
   :ensure t
