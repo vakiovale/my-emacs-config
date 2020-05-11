@@ -71,6 +71,10 @@
   :ensure t
   :hook (after-init . global-company-mode)
   :config
+  (setq company-backends '((company-capf
+                            company-files
+                            company-keywords
+                            company-clang)))
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 2)
   (setq company-search-regexp-function (quote company-search-flex-regexp)))
