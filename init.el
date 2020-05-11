@@ -93,6 +93,10 @@
   :config
   (setq lsp-keymap-prefix "s-l"))
 
+;; lsp-ui
+(use-package lsp-ui
+  :ensure t)
+
 ;; irony
 (use-package irony
   :ensure t
