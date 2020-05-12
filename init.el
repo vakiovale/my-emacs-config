@@ -66,19 +66,6 @@
   :config
   (global-flycheck-mode))
 
-;; company-mode
-(use-package company
-  :ensure t
-  :hook (after-init . global-company-mode)
-  :config
-  (setq company-backends '((company-capf
-                            company-files
-                            company-keywords
-                            company-clang)))
-  (setq company-idle-delay 0)
-  (setq company-minimum-prefix-length 2)
-  (setq company-search-regexp-function (quote company-search-flex-regexp)))
-
 ;; cmake-ide
 (use-package cmake-ide
   :ensure t
@@ -95,11 +82,26 @@
   :hook ((c++-mode . lsp)
          (c-mode . lsp))
   :config
-  (setq lsp-keymap-prefix "s-l"))
+  (setq lsp-keymap-prefix "s-l")
+  (advice-add #'lsp--auto-configure :override #'ignore))
 
 ;; lsp-ui
 (use-package lsp-ui
   :ensure t)
+
+;; company-mode
+(use-package company
+  :ensure t
+  :hook (after-init . global-company-mode)
+  :after (lsp-mode)
+  :config
+  (setq company-backends '((company-clang
+                           company-capf
+                           company-files
+                           company-keywords)))
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 1)
+  (setq company-search-regexp-function (quote company-search-flex-regexp)))
 
 ;; rainbow-delimiters
 (use-package rainbow-delimiters
@@ -182,6 +184,9 @@
 
 (add-hook 'c++-mode-hook #'electric-pair-mode)
 (add-hook 'c-mode-hook #'electric-pair-mode)
+(add-hook 'c++-mode-hook #'display-line-numbers-mode)
+(add-hook 'c-mode-hook #'display-line-numbers-mode)
+(add-hook 'emacs-lisp-mode-hook #'display-line-numbers-mode)
 
 ;; Custom functions
 (defun run-simple-program-in-eshell ()
