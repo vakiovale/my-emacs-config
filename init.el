@@ -72,6 +72,10 @@
   :config
   (cmake-ide-setup))
 
+;; cmake-mode
+(use-package cmake-mode
+  :ensure t)
+
 ;; treemacs
 (use-package lsp-treemacs
   :ensure t)
@@ -96,9 +100,10 @@
   :after (lsp-mode)
   :config
   (setq company-backends '((company-clang
-                           company-capf
-                           company-files
-                           company-keywords)))
+                            company-capf
+                            company-cmake
+                            company-files
+                            company-keywords)))
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1)
   (setq company-search-regexp-function (quote company-search-flex-regexp)))
@@ -116,6 +121,12 @@
   :config
   (global-set-key (kbd "C-M-f") #'clang-format-buffer)
   (global-set-key (kbd "C-M-r") #'clang-format-region))
+
+;; helm-ctest
+(use-package helm-ctest
+  :ensure t
+  :config
+  (global-set-key (kbd "C-c t") #'helm-ctest))
 
 ;; atom-one-dark
 (use-package atom-one-dark-theme
