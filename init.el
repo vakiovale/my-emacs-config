@@ -76,6 +76,10 @@
 (use-package cmake-mode
   :ensure t)
 
+;; glsl
+(use-package glsl-mode
+  :ensure t)
+
 ;; treemacs
 (use-package lsp-treemacs
   :ensure t)
@@ -107,6 +111,7 @@
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1)
   (setq company-search-regexp-function (quote company-search-flex-regexp)))
+
 
 ;; rainbow-delimiters
 (use-package rainbow-delimiters
@@ -211,3 +216,9 @@
 (global-set-key (kbd "C-c k") #'run-simple-program-in-eshell)
 
 (global-set-key (kbd "C-u") #'helm-imenu)
+
+;; company-glsl
+;; requires glsl-tools to be installed
+(when (executable-find "glslangValidator")
+  (load (expand-file-name "company-glsl/company-glsl.el" user-emacs-directory))
+  (add-to-list 'company-backends 'company-glsl))
