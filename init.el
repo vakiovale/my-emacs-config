@@ -11,6 +11,12 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+;; backup
+(custom-set-variables
+ '(auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
+ '(backup-directory-alist '((".*" . "~/.emacs.d/backups/"))))
+(make-directory "~/.emacs.d/autosaves" t)
+
 ;; c defaults
 (setq-default c-basic-offset 4
 	      tab-width 4
@@ -168,6 +174,10 @@
   (define-key c-mode-map (kbd "M-RET") #'srefactor-refactor-at-point)
   (define-key c++-mode-map (kbd "M-RET") #'srefactor-refactor-at-point))
 
+;; typescript
+(use-package typescript-mode
+  :ensure t)
+ 
 ;; keybindings
 (global-set-key (kbd "C-c 0") #'treemacs)
 (global-set-key (kbd "C-c C-e") #'eval-buffer)
