@@ -19,9 +19,9 @@
 
 ;; c defaults
 (setq-default c-basic-offset 4
-	      tab-width 4
-	      tab-always-indent nil
-	      indent-tabs-mode nil)
+              tab-width 4
+              tab-always-indent nil
+              indent-tabs-mode nil)
 
 ;; smartparens
 (use-package smartparens
@@ -180,14 +180,9 @@
 (use-package typescript-mode
   :ensure t)
 
-;; idle-highlight-mode
-(use-package idle-highlight-mode
-  :ensure t)
-
 ;; clojure-mode
 (use-package clojure-mode
-  :ensure t
-  :hook (clojure-mode . idle-highlight-mode))
+  :ensure t)
 
 ;; clojure-mode-extra-font-locking
 (use-package clojure-mode-extra-font-locking
@@ -197,10 +192,11 @@
 (use-package cider
   :ensure t)
 
-;; keybindings
-(global-set-key (kbd "C-c 0") #'treemacs)
-(global-set-key (kbd "C-c C-e") #'eval-buffer)
-(global-set-key (kbd "C-c e") #'projectile-find-file)
+;; idle-highlight-mode
+(use-package idle-highlight-mode
+  :ensure t
+  :config
+  (setq idle-highlight-idle-time 0.2))
 
 (defun run-cmake-binding ()
   (local-set-key (kbd "C-c r") #'cmake-ide-run-cmake))
@@ -214,24 +210,49 @@
 (defun lsp-find-references-binding ()
   (local-set-key (kbd "C-c f") #'lsp-find-references))
 
-(add-hook 'c++-mode-hook (lambda () (run-cmake-binding)))
-(add-hook 'c-mode-hook (lambda () (run-cmake-binding)))
-(add-hook 'cmake-mode-hook (lambda () (run-cmake-binding)))
+;; c++ hooks
+(defun my-cpp-hooks ()
+  (idle-highlight-mode t)
+  (display-line-numbers-mode t)
+  (electric-pair-mode t)
+  (run-cmake-binding)
+  (cmake-compile-binding))
+(add-hook 'c++-mode-hook #'my-cpp-hooks)
 
-(add-hook 'c++-mode-hook (lambda () (cmake-compile-binding)))
-(add-hook 'c-mode-hook (lambda () (cmake-compile-binding)))
-(add-hook 'cmake-mode-hook (lambda () (cmake-compile-binding)))
+;; c hooks
+(defun my-c-hooks ()
+  (idle-highlight-mode t)
+  (display-line-numbers-mode t)
+  (electric-pair-mode t)
+  (run-cmake-binding)
+  (cmake-compile-binding))
+(add-hook 'c-mode-hook #'my-c-hooks)
 
-(add-hook 'c++-mode-hook (lambda () (lsp-find-definition-binding)))
-(add-hook 'c-mode-hook (lambda () (lsp-find-definition-binding)))
-(add-hook 'c++-mode-hook (lambda () (lsp-find-references-binding)))
-(add-hook 'c-mode-hook (lambda () (lsp-find-references-binding)))
+;; cmake hooks
+(defun my-cmake-hooks ()
+  (idle-highlight-mode t)
+  (display-line-numbers-mode t)
+  (run-cmake-binding)
+  (cmake-compile-binding))
+(add-hook 'cmake-mode-hook #'my-cmake-hooks)
 
-(add-hook 'c++-mode-hook #'electric-pair-mode)
-(add-hook 'c-mode-hook #'electric-pair-mode)
-(add-hook 'c++-mode-hook #'display-line-numbers-mode)
-(add-hook 'c-mode-hook #'display-line-numbers-mode)
-(add-hook 'emacs-lisp-mode-hook #'display-line-numbers-mode)
+;; emacs-lisp hooks
+(defun my-emacs-lisp-hooks ()
+  (idle-highlight-mode t)
+  (display-line-numbers-mode t))
+(add-hook 'emacs-lisp-mode-hook #'my-emacs-lisp-hooks)
+
+;; clojure hooks
+(defun my-clojure-hooks ()
+  (idle-highlight-mode t)
+  (display-line-numbers-mode t))
+(add-hook 'clojure-mode-hook #'my-clojure-hooks)
+
+;; lsp hooks
+(defun my-lsp-hooks ()
+  (lsp-find-definition-binding)
+  (lsp-find-references-binding))
+(add-hook 'lsp-mode-hook #'my-lsp-hooks)
 
 ;; Custom functions
 (defun run-simple-program-in-eshell ()
@@ -242,12 +263,22 @@
   (insert custom-application-runnable)
   (eshell-send-input))
 
+;; global keybindings
 (global-set-key (kbd "C-c k") #'run-simple-program-in-eshell)
-
-(global-set-key (kbd "C-u") #'helm-imenu)
+(global-set-key (kbd "C-c 0") #'treemacs)
+(global-set-key (kbd "C-c C-e") #'eval-buffer)
+(global-set-key (kbd "C-c e") #'projectile-find-file)
 
 ;; company-glsl
 ;; requires glsl-tools to be installed
 (when (executable-find "glslangValidator")
   (load (expand-file-name "company-glsl/company-glsl.el" user-emacs-directory))
   (add-to-list 'company-backends 'company-glsl))
+
+;; glsl hooks
+(defun my-glsl-hooks ()
+  (idle-highlight-mode t)
+  (display-line-numbers-mode t)
+  (run-cmake-binding)
+  (cmake-compile-binding))
+(add-hook 'glsl-mode-hook #'my-glsl-hooks)
