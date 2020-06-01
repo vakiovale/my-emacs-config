@@ -29,6 +29,8 @@
   :config
   (smartparens-global-mode))
 
+(show-paren-mode 1)
+
 ;; window numbering
 (use-package window-numbering
   :ensure t
@@ -177,7 +179,24 @@
 ;; typescript
 (use-package typescript-mode
   :ensure t)
- 
+
+;; idle-highlight-mode
+(use-package idle-highlight-mode
+  :ensure t)
+
+;; clojure-mode
+(use-package clojure-mode
+  :ensure t
+  :hook (clojure-mode . idle-highlight-mode))
+
+;; clojure-mode-extra-font-locking
+(use-package clojure-mode-extra-font-locking
+  :ensure t)
+
+;; cider
+(use-package cider
+  :ensure t)
+
 ;; keybindings
 (global-set-key (kbd "C-c 0") #'treemacs)
 (global-set-key (kbd "C-c C-e") #'eval-buffer)
