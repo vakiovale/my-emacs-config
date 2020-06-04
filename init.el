@@ -17,8 +17,12 @@
  '(backup-directory-alist '((".*" . "~/.emacs.d/backups/"))))
 (make-directory "~/.emacs.d/autosaves" t)
 
-;; node executable
-(setq exec-path (append exec-path '("~/.nvm/versions/node/v13.6.0/bin")))
+;; fix paths
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
 
 ;; c defaults
 (setq-default c-basic-offset 4
@@ -204,6 +208,12 @@
 (use-package typescript-mode
   :ensure t)
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+;; tslint-fix
+(defun tslint-fix ()
+  (interactive)
+  (shell-command (concat "tslint --fix " (buffer-file-name)))
+  (revert-buffer t t))
 
 ;; clojure-mode
 (use-package clojure-mode
