@@ -17,6 +17,9 @@
  '(backup-directory-alist '((".*" . "~/.emacs.d/backups/"))))
 (make-directory "~/.emacs.d/autosaves" t)
 
+;; node executable
+(setq exec-path (append exec-path '("~/.nvm/versions/node/v13.6.0/bin")))
+
 ;; c defaults
 (setq-default c-basic-offset 4
               tab-width 4
@@ -43,6 +46,12 @@
   :config
   (projectile-mode +1)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+
+;; helm-projectile
+(use-package helm-projectile
+  :ensure t
+  :config
+  (helm-projectile-on))
 
 (use-package treemacs-projectile
   :ensure t
@@ -155,9 +164,8 @@
 
 ;; doom-themes
 (use-package doom-themes
-  :disabled
+  :ensure t
   :config
-  (load-theme 'doom-one t)
   (setq doom-themes-treemacs-theme "doom-colors")
   (doom-themes-treemacs-config))
 
@@ -172,13 +180,30 @@
 (use-package srefactor
   :ensure t
   :config
-  (semantic-mode 1)
   (define-key c-mode-map (kbd "M-RET") #'srefactor-refactor-at-point)
   (define-key c++-mode-map (kbd "M-RET") #'srefactor-refactor-at-point))
+
+;; tide
+(use-package tide
+  :ensure t)
+
+;; js2-mode
+(use-package js2-mode
+  :ensure t)
+
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  (company-mode +1))
 
 ;; typescript
 (use-package typescript-mode
   :ensure t)
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
 
 ;; clojure-mode
 (use-package clojure-mode
@@ -216,6 +241,7 @@
   (display-line-numbers-mode t)
   (electric-pair-mode t)
   (run-cmake-binding)
+  (semantic-mode 1)
   (cmake-compile-binding))
 (add-hook 'c++-mode-hook #'my-cpp-hooks)
 
@@ -225,6 +251,7 @@
   (display-line-numbers-mode t)
   (electric-pair-mode t)
   (run-cmake-binding)
+  (semantic-mode 1)
   (cmake-compile-binding))
 (add-hook 'c-mode-hook #'my-c-hooks)
 
@@ -280,7 +307,8 @@
 (global-set-key (kbd "C-c k") #'run-simple-program-in-eshell)
 (global-set-key (kbd "C-c 0") #'treemacs)
 (global-set-key (kbd "C-c C-e") #'eval-buffer)
-(global-set-key (kbd "C-c e") #'projectile-find-file)
+(global-set-key (kbd "C-M-e") #'projectile-find-file)
+(global-set-key (kbd "C-M-f") #'helm-projectile-grep)
 
 ;; company-glsl
 ;; requires glsl-tools to be installed
