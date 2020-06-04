@@ -143,7 +143,7 @@
 
 ;; atom-one-dark
 (use-package atom-one-dark-theme
-  :disabled
+  :ensure t
   :config
   (load-theme 'atom-one-dark t))
 
@@ -155,7 +155,7 @@
 
 ;; doom-themes
 (use-package doom-themes
-  :ensure t
+  :disabled
   :config
   (load-theme 'doom-one t)
   (setq doom-themes-treemacs-theme "doom-colors")
@@ -253,6 +253,19 @@
   (lsp-find-definition-binding)
   (lsp-find-references-binding))
 (add-hook 'lsp-mode-hook #'my-lsp-hooks)
+
+;; prog-mode hooks
+(defun my-prog-hooks ()
+  (idle-highlight-mode t)
+  (display-line-numbers-mode t)
+  (electric-pair-mode t))
+(add-hook 'prog-mode-hook #'my-prog-hooks)
+
+;; nxml hooks
+(defun my-nxml-hooks ()
+  (idle-highlight-mode t)
+  (display-line-numbers-mode t))
+(add-hook 'nxml-mode-hook #'my-nxml-hooks)
 
 ;; Custom functions
 (defun run-simple-program-in-eshell ()
