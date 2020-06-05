@@ -145,7 +145,7 @@
 (use-package clang-format
   :ensure t
   :config
-  (global-set-key (kbd "C-M-f") #'clang-format-buffer)
+  (global-set-key (kbd "C-c l") #'clang-format-buffer)
   (global-set-key (kbd "C-M-r") #'clang-format-region))
 
 ;; helm-ctest
