@@ -233,6 +233,13 @@
   :config
   (setq idle-highlight-idle-time 0.2))
 
+;; origami
+(use-package origami
+  :ensure t
+  :config
+  (global-origami-mode)
+  (global-set-key (kbd "<C-tab>") #'origami-toggle-node))
+
 (defun run-cmake-binding ()
   (local-set-key (kbd "C-c r") #'cmake-ide-run-cmake))
 
