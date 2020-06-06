@@ -239,7 +239,7 @@
   :ensure t
   :config
   (setq highlight-indent-guides-method 'character)
-  (setq highlight-indent-guides-auto-character-face-perc 2))
+  (setq highlight-indent-guides-auto-character-face-perc 5))
 
 ;; origami
 (use-package origami
@@ -324,19 +324,38 @@
 (add-hook 'nxml-mode-hook #'my-nxml-hooks)
 
 ;; Custom functions
+(defun window-below-if-not-exist ()
+  (interactive)
+  (if (not (window-in-direction 'below))
+      (progn (select-window (split-window-below))
+             (shrink-window 15))
+    (windmove-down)))
+
 (defun run-simple-program-in-eshell ()
   (interactive)
-  (eshell)
+  (window-below-if-not-exist)
   (insert "cd " custom-application-directory)
   (eshell-send-input)
   (insert custom-application-runnable)
-  (eshell-send-input))
+  (eshell-send-input)
+  (windmove-up))
+
+(defun run-test-program-in-eshell ()
+  (interactive)
+  (window-below-if-not-exist)
+  (eshell)
+  (insert "cd " custom-application-test-directory)
+  (eshell-send-input)
+  (insert custom-application-test-runnable)
+  (eshell-send-input)
+  (windmove-up))
 
 ;; global keybindings
 (global-set-key (kbd "C-c k") #'run-simple-program-in-eshell)
+(global-set-key (kbd "<f12>") #'run-test-program-in-eshell)
 (global-set-key (kbd "C-c 0") #'treemacs)
 (global-set-key (kbd "C-c C-e") #'eval-buffer)
-(global-set-key (kbd "C-M-e") #'projectile-find-file)
+(global-set-key (kbd "C-c e") #'projectile-find-file)
 (global-set-key (kbd "C-M-f") #'helm-projectile-grep)
 
 ;; company-glsl
