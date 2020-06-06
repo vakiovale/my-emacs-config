@@ -350,9 +350,27 @@
   (eshell-send-input)
   (windmove-up))
 
+(defun resolve-scenario-name (line)
+  (substring
+   line
+   (+ 10 (string-match "SCENARIO(\"" line))
+   (string-match "\"" line (+ 10 (string-match "SCENARIO(" line)))))
+
+(defun run-catch2-test-scenario ()
+  (interactive)
+  (let ((test-name (resolve-scenario-name (thing-at-point 'line))))
+    (window-below-if-not-exist)
+    (eshell)
+    (insert "cd " custom-application-test-directory)
+    (eshell-send-input)
+    (insert custom-application-test-runnable " \"Scenario: " test-name "\"")
+    (eshell-send-input)
+    (windmove-up)))
+
 ;; global keybindings
 (global-set-key (kbd "C-c k") #'run-simple-program-in-eshell)
 (global-set-key (kbd "<f12>") #'run-test-program-in-eshell)
+(global-set-key (kbd "C-<f12>") #'run-catch2-test-scenario)
 (global-set-key (kbd "C-c 0") #'treemacs)
 (global-set-key (kbd "C-c C-e") #'eval-buffer)
 (global-set-key (kbd "C-c e") #'projectile-find-file)
