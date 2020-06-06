@@ -234,6 +234,13 @@
   :config
   (setq idle-highlight-idle-time 0.2))
 
+;; highlight-indent-guides
+(use-package highlight-indent-guides
+  :ensure t
+  :config
+  (setq highlight-indent-guides-method 'character)
+  (setq highlight-indent-guides-auto-character-face-perc 2))
+
 ;; origami
 (use-package origami
   :ensure t
@@ -283,6 +290,7 @@
 
 ;; emacs-lisp hooks
 (defun my-emacs-lisp-hooks ()
+  (hl-line-mode t)
   (idle-highlight-mode t)
   (display-line-numbers-mode t))
 (add-hook 'emacs-lisp-mode-hook #'my-emacs-lisp-hooks)
@@ -303,6 +311,7 @@
 (defun my-prog-hooks ()
   (hl-line-mode t)
   (idle-highlight-mode t)
+  (highlight-indent-guides-mode t)
   (display-line-numbers-mode t)
   (electric-pair-mode t))
 (add-hook 'prog-mode-hook #'my-prog-hooks)
