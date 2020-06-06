@@ -137,7 +137,8 @@
 ;; rainbow-delimiters
 (use-package rainbow-delimiters
   :ensure t
-  :hook ((c-mode . rainbow-delimiters-mode)
+  :hook ((prog-mode . rainbow-delimiters-mode)
+         (c-mode . rainbow-delimiters-mode)
          (c++-mode . rainbow-delimiters-mode)
          (emacs-lisp-mode . rainbow-delimiters-mode)))
 
@@ -300,6 +301,7 @@
 
 ;; prog-mode hooks
 (defun my-prog-hooks ()
+  (hl-line-mode t)
   (idle-highlight-mode t)
   (display-line-numbers-mode t)
   (electric-pair-mode t))
@@ -307,6 +309,7 @@
 
 ;; nxml hooks
 (defun my-nxml-hooks ()
+  (hl-line-mode t)
   (idle-highlight-mode t)
   (display-line-numbers-mode t))
 (add-hook 'nxml-mode-hook #'my-nxml-hooks)
