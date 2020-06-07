@@ -124,15 +124,21 @@
   :hook (after-init . global-company-mode)
   :after (lsp-mode)
   :config
-  (setq company-backends '((company-clang
-                            company-capf
-                            company-cmake
-                            company-files
-                            company-keywords)))
+  (setq company-backends '(company-capf
+                           company-cmake
+                           company-files
+                           company-keywords))
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1)
   (setq company-search-regexp-function (quote company-search-flex-regexp)))
 
+;; company-box
+(use-package company-box
+  :ensure t
+  :after (company)
+  :hook (company-mode . company-box-mode)
+  :config
+  (setq company-box-show-single-candidate t))
 
 ;; rainbow-delimiters
 (use-package rainbow-delimiters
@@ -157,7 +163,7 @@
 
 ;; atom-one-dark
 (use-package atom-one-dark-theme
-  :ensure t
+  :disabled
   :config
   (load-theme 'atom-one-dark t))
 
@@ -172,7 +178,8 @@
   :ensure t
   :config
   (setq doom-themes-treemacs-theme "doom-colors")
-  (doom-themes-treemacs-config))
+  (doom-themes-treemacs-config)
+  (load-theme 'doom-vibrant t))
 
 ;; doom-modeline
 (use-package doom-modeline
@@ -331,9 +338,14 @@
              (shrink-window 15))
     (windmove-down)))
 
-(defun run-simple-program-in-eshell ()
+(defun open-eshell-below ()
   (interactive)
   (window-below-if-not-exist)
+  (eshell))
+
+(defun run-simple-program-in-eshell ()
+  (interactive)
+  (open-eshell-below)
   (insert "cd " custom-application-directory)
   (eshell-send-input)
   (insert custom-application-runnable)
@@ -342,8 +354,7 @@
 
 (defun run-test-program-in-eshell ()
   (interactive)
-  (window-below-if-not-exist)
-  (eshell)
+  (open-eshell-below)
   (insert "cd " custom-application-test-directory)
   (eshell-send-input)
   (insert custom-application-test-runnable)
@@ -359,8 +370,7 @@
 (defun run-catch2-test-scenario ()
   (interactive)
   (let ((test-name (resolve-scenario-name (thing-at-point 'line))))
-    (window-below-if-not-exist)
-    (eshell)
+    (open-eshell-below)
     (insert "cd " custom-application-test-directory)
     (eshell-send-input)
     (insert custom-application-test-runnable " \"Scenario: " test-name "\"")
@@ -375,6 +385,7 @@
 (global-set-key (kbd "C-c C-e") #'eval-buffer)
 (global-set-key (kbd "C-c e") #'projectile-find-file)
 (global-set-key (kbd "C-M-f") #'helm-projectile-grep)
+(global-set-key (kbd "C-c q") #'lsp-ui-doc-show)
 
 ;; company-glsl
 ;; requires glsl-tools to be installed
