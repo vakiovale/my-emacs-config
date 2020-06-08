@@ -49,6 +49,8 @@
   :ensure t
   :config
   (projectile-mode +1)
+  (setq projectile-enable-caching t)
+  (setq projectile-use-git-grep t)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
 ;; helm-projectile
@@ -108,7 +110,8 @@
 ;; lsp-mode
 (use-package lsp-mode
   :ensure t
-  :hook ((c++-mode . lsp)
+  :hook ((js2-mode . lsp)
+         (c++-mode . lsp)
          (c-mode . lsp))
   :config
   (setq lsp-keymap-prefix "s-l")
@@ -131,14 +134,6 @@
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1)
   (setq company-search-regexp-function (quote company-search-flex-regexp)))
-
-;; company-box
-(use-package company-box
-  :ensure t
-  :after (company)
-  :hook (company-mode . company-box-mode)
-  :config
-  (setq company-box-show-single-candidate t))
 
 ;; rainbow-delimiters
 (use-package rainbow-delimiters
@@ -327,6 +322,7 @@
 (defun my-nxml-hooks ()
   (hl-line-mode t)
   (idle-highlight-mode t)
+  (highlight-indent-guides-mode t)
   (display-line-numbers-mode t))
 (add-hook 'nxml-mode-hook #'my-nxml-hooks)
 
