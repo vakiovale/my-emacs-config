@@ -381,6 +381,8 @@
 (global-set-key (kbd "C-c C-e") #'eval-buffer)
 (global-set-key (kbd "C-c e") #'projectile-find-file)
 (global-set-key (kbd "C-M-f") #'helm-projectile-grep)
+(global-set-key (kbd "C-q") #'lsp-ui-doc-glance)
+(global-set-key (kbd "C-<f12>") #'helm-imenu)
 
 ;; company-glsl
 ;; requires glsl-tools to be installed
