@@ -250,12 +250,6 @@
   (global-origami-mode)
   (global-set-key (kbd "<C-tab>") #'origami-toggle-node))
 
-(defun run-cmake-binding ()
-  (local-set-key (kbd "C-c r") #'cmake-ide-run-cmake))
-
-(defun cmake-compile-binding ()
-  (local-set-key (kbd "C-c c") #'cmake-ide-compile))
-
 (defun lsp-find-definition-binding ()
   (local-set-key (kbd "C-c b") #'lsp-find-definition))
 
@@ -267,9 +261,7 @@
   (idle-highlight-mode t)
   (display-line-numbers-mode t)
   (electric-pair-mode t)
-  (run-cmake-binding)
-  (semantic-mode 1)
-  (cmake-compile-binding))
+  (semantic-mode 1))
 (add-hook 'c++-mode-hook #'my-cpp-hooks)
 
 ;; c hooks
@@ -277,17 +269,13 @@
   (idle-highlight-mode t)
   (display-line-numbers-mode t)
   (electric-pair-mode t)
-  (run-cmake-binding)
-  (semantic-mode 1)
-  (cmake-compile-binding))
+  (semantic-mode 1))
 (add-hook 'c-mode-hook #'my-c-hooks)
 
 ;; cmake hooks
 (defun my-cmake-hooks ()
   (idle-highlight-mode t)
-  (display-line-numbers-mode t)
-  (run-cmake-binding)
-  (cmake-compile-binding))
+  (display-line-numbers-mode t))
 (add-hook 'cmake-mode-hook #'my-cmake-hooks)
 
 ;; emacs-lisp hooks
@@ -383,6 +371,8 @@
 (global-set-key (kbd "C-M-f") #'helm-projectile-grep)
 (global-set-key (kbd "C-q") #'lsp-ui-doc-glance)
 (global-set-key (kbd "C-<f12>") #'helm-imenu)
+(global-set-key (kbd "C-c r") #'cmake-ide-run-cmake)
+(global-set-key (kbd "C-c c") #'cmake-ide-compile)
 
 ;; company-glsl
 ;; requires glsl-tools to be installed
@@ -393,7 +383,5 @@
 ;; glsl hooks
 (defun my-glsl-hooks ()
   (idle-highlight-mode t)
-  (display-line-numbers-mode t)
-  (run-cmake-binding)
-  (cmake-compile-binding))
+  (display-line-numbers-mode t))
 (add-hook 'glsl-mode-hook #'my-glsl-hooks)
