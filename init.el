@@ -38,6 +38,10 @@
 
 (show-paren-mode 1)
 
+;; paredit
+(use-package paredit
+  :ensure t)
+
 ;; window numbering
 (use-package window-numbering
   :ensure t
@@ -230,6 +234,12 @@
 (use-package cider
   :ensure t)
 
+;; clj-refactor
+(use-package clj-refactor
+  :ensure t
+  :config
+  (setq cljr-warn-on-eval nil))
+
 ;; idle-highlight-mode
 (use-package idle-highlight-mode
   :ensure t
@@ -288,7 +298,10 @@
 ;; clojure hooks
 (defun my-clojure-hooks ()
   (idle-highlight-mode t)
-  (display-line-numbers-mode t))
+  (display-line-numbers-mode t)
+  (clj-refactor-mode 1)
+  (yas-minor-mode 1)
+  (enable-paredit-mode))
 (add-hook 'clojure-mode-hook #'my-clojure-hooks)
 
 ;; lsp hooks
