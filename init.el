@@ -30,6 +30,9 @@
               tab-always-indent nil
               indent-tabs-mode nil)
 
+;; highlight line
+(global-hl-line-mode 1)
+
 ;; smartparens
 (use-package smartparens
   :ensure t
@@ -72,7 +75,7 @@
 
 ;; top bar
 (tool-bar-mode -1)
-(menu-bar-mode -1)
+;;(menu-bar-mode -1)
 
 ;; magit
 (use-package magit
@@ -290,7 +293,6 @@
 
 ;; emacs-lisp hooks
 (defun my-emacs-lisp-hooks ()
-  (hl-line-mode t)
   (idle-highlight-mode t)
   (display-line-numbers-mode t))
 (add-hook 'emacs-lisp-mode-hook #'my-emacs-lisp-hooks)
@@ -312,7 +314,6 @@
 
 ;; prog-mode hooks
 (defun my-prog-hooks ()
-  (hl-line-mode t)
   (idle-highlight-mode t)
   (highlight-indent-guides-mode t)
   (display-line-numbers-mode t)
@@ -321,7 +322,6 @@
 
 ;; nxml hooks
 (defun my-nxml-hooks ()
-  (hl-line-mode t)
   (idle-highlight-mode t)
   (highlight-indent-guides-mode t)
   (display-line-numbers-mode t))
@@ -381,7 +381,7 @@
 (global-set-key (kbd "C-c 0") #'treemacs)
 (global-set-key (kbd "C-c C-e") #'eval-buffer)
 (global-set-key (kbd "C-c e") #'projectile-find-file)
-(global-set-key (kbd "C-F") #'helm-projectile-grep)
+(global-set-key (kbd "C-S-f") #'helm-projectile-grep)
 (global-set-key (kbd "C-q") #'lsp-ui-doc-glance)
 (global-set-key (kbd "C-<f12>") #'helm-imenu)
 (global-set-key (kbd "C-c r") #'cmake-ide-run-cmake)
