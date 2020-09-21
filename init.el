@@ -181,7 +181,8 @@
   :config
   (setq doom-themes-treemacs-theme "doom-colors")
   (doom-themes-treemacs-config)
-  (load-theme 'doom-vibrant t))
+  ;;(load-theme 'doom-vibrant t)
+  (load-theme 'doom-one-light t))
 
 ;; doom-modeline
 (use-package doom-modeline
@@ -189,6 +190,20 @@
   :config
   (setq doom-modeline-icon (display-graphic-p))
   (doom-modeline-mode 1))
+
+;; centaur-tabs
+(use-package centaur-tabs
+  :ensure t
+  :demand
+  :config
+  (centaur-tabs-mode t)
+  (centaur-tabs-headline-match)
+  (setq centaur-tabs-style "wave")
+  (setq centaur-tabs-set-modified-marker t)
+  (setq centaur-tabs-set-icons t)
+  :bind
+  ("C-<prior>" . centaur-tabs-backward)
+  ("C-<next>" . centaur-tabs-forward))
 
 ;; semantic-refactor
 (use-package srefactor
