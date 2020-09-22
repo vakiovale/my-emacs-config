@@ -196,11 +196,11 @@
   :ensure t
   :demand
   :config
-  (centaur-tabs-mode t)
   (centaur-tabs-headline-match)
   (setq centaur-tabs-style "wave")
   (setq centaur-tabs-set-modified-marker t)
   (setq centaur-tabs-set-icons t)
+  (centaur-tabs-mode t)
   :bind
   ("C-<prior>" . centaur-tabs-backward)
   ("C-<next>" . centaur-tabs-forward))
@@ -256,20 +256,14 @@
 (use-package clj-refactor
   :ensure t
   :config
-  (setq cljr-warn-on-eval nil))
+  (setq cljr-warn-on-eval nil)
+  (cljr-add-keybindings-with-prefix "C-c C-m"))
 
 ;; idle-highlight-mode
 (use-package idle-highlight-mode
   :ensure t
   :config
   (setq idle-highlight-idle-time 0.2))
-
-;; highlight-indent-guides
-(use-package highlight-indent-guides
-  :ensure t
-  :config
-  (setq highlight-indent-guides-method 'character)
-  (setq highlight-indent-guides-auto-character-face-perc 5))
 
 ;; origami
 (use-package origami
@@ -330,7 +324,6 @@
 ;; prog-mode hooks
 (defun my-prog-hooks ()
   (idle-highlight-mode t)
-  (highlight-indent-guides-mode t)
   (display-line-numbers-mode t)
   (electric-pair-mode t))
 (add-hook 'prog-mode-hook #'my-prog-hooks)
@@ -338,7 +331,6 @@
 ;; nxml hooks
 (defun my-nxml-hooks ()
   (idle-highlight-mode t)
-  (highlight-indent-guides-mode t)
   (display-line-numbers-mode t))
 (add-hook 'nxml-mode-hook #'my-nxml-hooks)
 
@@ -413,3 +405,9 @@
   (idle-highlight-mode t)
   (display-line-numbers-mode t))
 (add-hook 'glsl-mode-hook #'my-glsl-hooks)
+
+;; fix dead keys
+(require 'iso-transl)
+
+(provide 'init)
+;;; init.el ends here
