@@ -165,7 +165,7 @@
 
 ;; atom-one-dark
 (use-package atom-one-dark-theme
-  :disabled
+  :ensure t
   :config
   (load-theme 'atom-one-dark t))
 
@@ -180,9 +180,8 @@
   :ensure t
   :config
   (setq doom-themes-treemacs-theme "doom-colors")
-  (doom-themes-treemacs-config)
-  ;;(load-theme 'doom-vibrant t)
-  (load-theme 'doom-one-light t))
+  (doom-themes-treemacs-config))
+  ;;(load-theme 'doom-one-light t))
 
 ;; doom-modeline
 (use-package doom-modeline
