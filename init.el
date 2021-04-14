@@ -121,7 +121,7 @@
          (c++-mode . lsp)
          (c-mode . lsp))
   :config
-  (setq lsp-keymap-prefix "s-l")
+  (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
   (advice-add #'lsp--auto-configure :override #'ignore))
 
 ;; lsp-ui
@@ -154,7 +154,7 @@
 (use-package clang-format
   :ensure t
   :config
-  (global-set-key (kbd "C-c l") #'clang-format-buffer)
+  (global-set-key (kbd "C-M-l") #'clang-format-buffer)
   (global-set-key (kbd "C-M-r") #'clang-format-region))
 
 ;; helm-ctest
@@ -180,8 +180,9 @@
   :ensure t
   :config
   (setq doom-themes-treemacs-theme "doom-colors")
-  (doom-themes-treemacs-config))
-  ;;(load-theme 'doom-one-light t))
+  (doom-themes-treemacs-config)
+  ;;(load-theme 'doom-vibrant t)
+  (load-theme 'atom-one-dark t))
 
 ;; doom-modeline
 (use-package doom-modeline
@@ -270,6 +271,33 @@
   :config
   (global-origami-mode)
   (global-set-key (kbd "<C-tab>") #'origami-toggle-node))
+
+;; rust
+(use-package rustic
+  :ensure t
+  :bind (:map rustic-mode-map
+              ("M-j" . lsp-ui-imenu)
+              ("M-?" . lsp-find-references)
+              ("C-c C-c l" . flycheck-list-errors)
+              ("C-c C-c a" . lsp-execute-code-action)
+              ("C-c C-c r" . lsp-rename)
+              ("C-c C-c q" . lsp-workspace-restart)
+              ("C-c C-c Q" . lsp-workspace-shutdown)
+              ("C-c C-c s" . lsp-rust-analyzer-status))
+  :config
+  ;; uncomment for less flashiness
+  ;; (setq lsp-eldoc-hook nil)
+  ;; (setq lsp-enable-symbol-highlighting nil)
+  ;; (setq lsp-signature-auto-activate nil)
+  (lsp-rust-analyzer-server-display-inlay-hints t)
+
+  ;; comment to disable rustfmt on save
+  (setq rustic-format-on-save t)
+  (add-hook 'rustic-mode-hook 'rk/rustic-mode-hook))
+
+(defun rk/rustic-mode-hook ()
+  ;; so that run C-c C-c C-r works without having to confirm
+  (setq-local buffer-save-without-query t))
 
 (defun lsp-find-definition-binding ()
   (local-set-key (kbd "C-c b") #'lsp-find-definition))
