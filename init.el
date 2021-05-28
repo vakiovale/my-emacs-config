@@ -297,7 +297,7 @@
   ;; (setq lsp-eldoc-hook nil)
   ;; (setq lsp-enable-symbol-highlighting nil)
   ;; (setq lsp-signature-auto-activate nil)
-  (lsp-rust-analyzer-server-display-inlay-hints t)
+  (setq lsp-rust-analyzer-server-display-inlay-hints t)
 
   ;; comment to disable rustfmt on save
   (setq rustic-format-on-save t)
