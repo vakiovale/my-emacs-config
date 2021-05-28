@@ -90,6 +90,14 @@
   :config
   (global-diff-hl-mode))
 
+;; yasnippet
+(use-package yasnippet
+  :ensure t
+  :config
+  (yas-reload-all)
+  (add-hook 'prog-mode-hook 'yas-minor-mode)
+  (add-hook 'text-mode-hook 'yas-minor-mode))
+
 ;; flycheck
 (use-package flycheck
   :ensure t
