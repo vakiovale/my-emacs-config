@@ -146,9 +146,9 @@
                            company-cmake
                            company-files
                            company-keywords))
-  (setq company-idle-delay 0)
-  (setq company-minimum-prefix-length 0)
-  (setq company-transformers '(company-sort-by-occurrence))
+  (setq company-idle-delay 0.1)
+  (setq company-minimum-prefix-length 1)
+  ;; (setq company-transformers '(company-sort-by-occurrence))
   (setq company-search-regexp-function (quote company-search-flex-regexp)))
 
 ;; rainbow-delimiters
