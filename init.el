@@ -102,6 +102,7 @@
 (use-package flycheck
   :ensure t
   :config
+  (setq flycheck-check-syntax-automatically '(mode-enabled save new-line))
   (global-flycheck-mode))
 
 ;; cmake-ide
@@ -148,7 +149,7 @@
                            company-keywords))
   (setq company-idle-delay 0.1)
   (setq company-minimum-prefix-length 1)
-  ;; (setq company-transformers '(company-sort-by-occurrence))
+  (setq company-transformers '(company-sort-by-occurrence))
   (setq company-search-regexp-function (quote company-search-flex-regexp)))
 
 ;; rainbow-delimiters
