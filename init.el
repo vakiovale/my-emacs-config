@@ -17,6 +17,11 @@
  '(backup-directory-alist '((".*" . "~/.emacs.d/backups/"))))
 (make-directory "~/.emacs.d/autosaves" t)
 
+;; performance tuning
+(setq gc-cons-threshold 100000000)
+(setq read-process-output-max (* 1024 1024))
+(setq lsp-idle-delay 0.500)
+
 ;; fix paths
 (use-package exec-path-from-shell
   :ensure t
@@ -313,7 +318,7 @@
   (local-set-key (kbd "C-c b") #'lsp-find-definition))
 
 (defun lsp-find-references-binding ()
-  (local-set-key (kbd "C-c f") #'lsp-find-references))
+  (local-set-key (kbd "C-c C-r") #'lsp-treemacs-references))
 
 ;; c++ hooks
 (defun my-cpp-hooks ()
@@ -424,7 +429,7 @@
 (global-set-key (kbd "C-<f12>") #'run-catch2-test-scenario)
 (global-set-key (kbd "C-c 0") #'treemacs)
 (global-set-key (kbd "C-c C-e") #'eval-buffer)
-(global-set-key (kbd "C-c e") #'projectile-find-file)
+(global-set-key (kbd "C-c f") #'projectile-find-file)
 (global-set-key (kbd "C-S-f") #'helm-projectile-grep)
 (global-set-key (kbd "C-q") #'lsp-ui-doc-glance)
 (global-set-key (kbd "C-<f12>") #'helm-imenu)
