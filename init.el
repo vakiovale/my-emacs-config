@@ -204,6 +204,15 @@
   :ensure t
   :config
   (setq doom-modeline-icon (display-graphic-p))
+  (setq doom-modeline-height 40)
+  (setq doom-modeline-bar-width 3)
+  (setq doom-modeline-major-mode-icon t)
+  (setq doom-modeline-major-mode-color-icon t)
+  (setq doom-modeline-buffer-state-icon t)
+  (setq doom-modeline-buffer-modification-icon t)
+  (setq doom-modeline-minor-modes nil)
+  (setq doom-modeline-indent-info t)
+  (setq doom-modeline-lsp t)
   (doom-modeline-mode 1))
 
 ;; centaur-tabs
