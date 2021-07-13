@@ -140,7 +140,11 @@
 
 ;; lsp-ui
 (use-package lsp-ui
-  :ensure t)
+  :ensure t
+  :custom
+  (lsp-ui-doc-max-height 20)
+  (lsp-ui-doc-header t)
+  (lsp-ui-doc-include-signature t))
 
 ;; company-mode
 (use-package company
@@ -440,7 +444,7 @@
 (global-set-key (kbd "C-c C-e") #'eval-buffer)
 (global-set-key (kbd "C-c f") #'projectile-find-file)
 (global-set-key (kbd "C-S-f") #'helm-projectile-grep)
-(global-set-key (kbd "C-q") #'lsp-ui-doc-glance)
+(global-set-key (kbd "C-q") #'lsp-ui-doc-show)
 (global-set-key (kbd "C-<f12>") #'helm-imenu)
 (global-set-key (kbd "C-c r") #'cmake-ide-run-cmake)
 (global-set-key (kbd "C-c c") #'cmake-ide-compile)
