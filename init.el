@@ -22,6 +22,13 @@
 (setq read-process-output-max (* 1024 1024))
 (setq lsp-idle-delay 0.500)
 
+;; remove startup messages
+(setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
+
+;; set *scratch* message to empty string
+(setq initial-scratch-message "")
+
 ;; fix paths
 (use-package exec-path-from-shell
   :ensure t
