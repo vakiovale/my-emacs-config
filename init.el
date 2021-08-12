@@ -80,7 +80,9 @@
 
 (use-package treemacs-projectile
   :ensure t
-  :after (treemacs projectile))
+  :after (treemacs projectile)
+  :config
+  (setq treemacs-width 20))
 
 ;; scroll bar
 (scroll-bar-mode -1)
