@@ -45,6 +45,9 @@
 ;; highlight line
 (global-hl-line-mode 1)
 
+;; do not wrap lines
+(set-default 'truncate-lines t)
+
 ;; smartparens
 (use-package smartparens
   :ensure t
