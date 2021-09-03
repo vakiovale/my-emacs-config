@@ -11,6 +11,9 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+;; maybe fixes problems with black cursor in daemon mode
+(setq inhibit-x-resources 't)
+
 ;; backup
 (custom-set-variables
  '(auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
@@ -211,9 +214,9 @@
   :ensure t
   :config
   (setq doom-themes-treemacs-theme "doom-colors")
-  (doom-themes-treemacs-config)
+  (doom-themes-treemacs-config))
   ;;(load-theme 'doom-vibrant t)
-  (load-theme 'atom-one-dark t))
+  ;;(load-theme 'atom-one-dark t))
 
 ;; doom-modeline
 (use-package doom-modeline
